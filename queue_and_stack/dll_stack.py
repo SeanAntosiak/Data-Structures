@@ -1,18 +1,25 @@
 import sys
 sys.path.append('../doubly_linked_list')
-from doubly_linked_list import DoublyLinkedList
+from doubly_linked_list import DoublyLinkedList as dll  # noqa
+from doubly_linked_list import ListNode  # noqa
+
 
 class Stack:
     def __init__(self):
         self.size = 0
-        # Why is our DLL a good choice to store our elements?
-        # self.storage = ?
+        self.list = dll()
 
     def push(self, value):
-        pass
+        self.list.add_to_tail(value)
+        self.size = self.list.length
 
     def pop(self):
-        pass
+        if self.size == 0:
+            return(None)
+        else:
+            val = self.list.remove_from_tail()
+            self.size = self.list.length
+            return(val)
 
     def len(self):
-        pass
+        return(self.size)
