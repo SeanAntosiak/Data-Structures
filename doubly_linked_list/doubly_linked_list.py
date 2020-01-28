@@ -48,45 +48,150 @@ class DoublyLinkedList:
     def __len__(self):
         return self.length
 
-    """Wraps the given value in a ListNode and inserts it 
-    as the new head of the list. Don't forget to handle 
+    """Wraps the given value in a ListNode and inserts it
+    as the new head of the list. Don't forget to handle
     the old head node's previous pointer accordingly."""
     def add_to_head(self, value):
-        pass
+        if self.length == 0:
+            node = ListNode(value)
+            self.head = node
+            self.tail = node
+            self.length = 1
+        else:
+            current_head = self.head
+            node = ListNode(value, next=current_head)
+            current_head.prev = node
+            self.head = node
+            self.length += 1
+
 
     """Removes the List's current head node, making the
     current head's next node the new head of the List.
     Returns the value of the removed Node."""
     def remove_from_head(self):
-        pass
+        if self.head is None:
+            return(None)
+        elif self.length == 1:
+            val = self.head.value
+            self.tail = None
+            self.head = None
+            self.length = 0
+            return(val)
+        else:
+            current_head = self.head
+            self.head = current_head.next
+            self.length -= 1
+            val = current_head.value
+            del current_head
+            return(val)
 
-    """Wraps the given value in a ListNode and inserts it 
-    as the new tail of the list. Don't forget to handle 
+    """Wraps the given value in a ListNode and inserts it
+    as the new tail of the list. Don't forget to handle
     the old tail node's next pointer accordingly."""
     def add_to_tail(self, value):
-        pass
+        if self.length == 0:
+            node = ListNode(value)
+            self.head = node
+            self.tail = node
+            self.length = 1
+        else:
+            current_tail = self.tail
+            node = ListNode(value, prev=current_tail)
+            current_tail.next = node
+            self.tail = node
+            self.length += 1
 
-    """Removes the List's current tail node, making the 
+    """Removes the List's current tail node, making the
     current tail's previous node the new tail of the List.
     Returns the value of the removed Node."""
     def remove_from_tail(self):
-        pass
+        if self.length == 0:
+            return(None)
+        elif self.length == 1:
+            val = self.tail.value
+            self.tail = None
+            self.head = None
+            self.length = 0
+            return(val)
+        else:
+            current_tail = self.tail
+            self.tail = current_tail.prev
+            self.length -= 1
+            val = current_tail.value
+            del current_tail
+            return(val)
 
-    """Removes the input node from its current spot in the 
+    """Removes the input node from its current spot in the
     List and inserts it as the new head node of the List."""
     def move_to_front(self, node):
-        pass
+        if self.length <= 1:
+            pass
+        if self.head == node:
+            pass
+        elif self.tail == node:
+            self.add_to_head(self.remove_from_tail())
+        else:
+            previous = node.prev
+            next = node.next
+            if previous is None:
+                pass
+            else:
+                previous.next = next
+                next.prev = previous
+                self.add_to_head(node.value)
 
-    """Removes the input node from its current spot in the 
+    """Removes the input node from its current spot in the
     List and inserts it as the new tail node of the List."""
     def move_to_end(self, node):
-        pass
+        if self.head == node:
+            self.add_to_tail(self.remove_from_head())
+        else:
+            previous = node.prev
+            next = node.next
+            if next is None:
+                pass
+            else:
+                previous.next = next
+                next.prev = previous
+                self.add_to_tail(node.value)
 
     """Removes a node from the list and handles cases where
     the node was the head or the tail"""
     def delete(self, node):
-        pass
-        
+        if self.length == 1:
+            del node
+            self.head = None
+            self.tail = None
+            self.length = 0
+        elif self.head == node:
+            self.head = node.next
+            self.head.prev = None
+            self.length -= 1
+        elif self.tail == node:
+            self.tail = node.prev
+            self.head.next = None
+            self.length -= 1
+        else:
+            previous = node.prev
+            next = node.next
+            previous.next = next
+            next.previous = previous
+            del node
+
     """Returns the highest value currently in the list"""
     def get_max(self):
-        pass
+        if self.length == 0:
+            return(0)
+        else:
+            current_node = self.head
+            current_max = self.head.value
+            checking = 1
+            while checking == 1:
+                if current_node.value > current_max:
+                    current_max = current_node.value
+
+                if current_node.next is not None:
+                    current_node = current_node.next
+                else:
+                    checking = 0
+            return(current_max)
