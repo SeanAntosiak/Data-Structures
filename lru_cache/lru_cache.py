@@ -26,7 +26,7 @@ class LRUCache:
     def get(self, key):
         if key in self.dict:
             self.order.move_to_end(self.dict[key])
-            return(key)
+            return(self.dict[key].value[1])
         else:
             return(None)
 
@@ -45,7 +45,10 @@ class LRUCache:
             self.order.delete(self.dict[key])
 
         elif self.order.length == self.limit:
-            self.order.remove_from_head()
+            vals = self.order.remove_from_head()
+            del self.dict[vals[0]]
 
-        self.order.add_to_tail(key)
+
+        self.order.add_to_tail((key, value))
         self.dict[key] = self.order.tail
+        self.size = self.order.length
