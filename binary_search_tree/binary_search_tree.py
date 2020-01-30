@@ -116,17 +116,3 @@ class BinarySearchTree:
     # Print Post-order recursive DFT
     def post_order_dft(self, node):
         pass
-
-
-test = BinarySearchTree(6)
-
-test.insert(1)
-test.insert(5)
-test.insert(99)
-test.insert(22)
-test.insert(1)
-test.insert(5)
-test.insert(99)
-test.insert(22)
-
-test.dft_print(test)
