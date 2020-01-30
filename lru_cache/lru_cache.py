@@ -48,7 +48,6 @@ class LRUCache:
             vals = self.order.remove_from_head()
             del self.dict[vals[0]]
 
-
         self.order.add_to_tail((key, value))
         self.dict[key] = self.order.tail
         self.size = self.order.length
